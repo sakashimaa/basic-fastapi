@@ -8,7 +8,11 @@ class RunConfig(BaseModel):
 
 
 class DbConfig(BaseModel):
-    db_url: str = "sqlite://db.sqlite3"
+    db_user: str = "postgres"
+    db_host: str = "localhost"
+    db_port: int = 5432
+    db_password: str = "qwerty123"
+    db_name: str = "shop"
 
 
 class ApiPrefix(BaseModel):
