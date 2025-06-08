@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings
+from pydantic import PostgresDsn
 from pydantic import BaseModel
 
 
@@ -7,22 +8,22 @@ class RunConfig(BaseModel):
     port: int = 8000
 
 
-class DbConfig(BaseModel):
-    db_user: str = "postgres"
-    db_host: str = "localhost"
-    db_port: int = 5432
-    db_password: str = "qwerty123"
-    db_name: str = "shop"
-
-
 class ApiPrefix(BaseModel):
     api_prefix: str = "/api"
 
 
+class DatabaseConfig(BaseModel):
+    url: PostgresDsn
+    echo: bool = False
+    echo_pool: bool = False
+    pool_size: int = 50
+    max_overflow: int = 10
+
+
 class Settings(BaseSettings):
     run: RunConfig = RunConfig()
-    db: DbConfig = DbConfig()
     api: ApiPrefix = ApiPrefix()
+    db_config: DatabaseConfig
 
 
 settings = Settings()
